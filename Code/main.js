@@ -1,5 +1,7 @@
 let HumanScoreNumber = 0;
 let ComputerScoreNumber = 0;
+let HumanValue;
+let ComputerValue;
 
 
 const ScoreContainer = document.querySelector("div");
@@ -20,69 +22,49 @@ function ScoreWriter(){
   PlayerScore.textContent = `Player score is: ${HumanScoreNumber}`;
   ComputerScore.textContent = `Computer score is : ${ComputerScoreNumber}`;
 
- ;
-
 }
 
 function getComputerChoice(max) {
   let value = Math.floor(Math.random() * max);
-  return value;
-  // 0 -> Rock
-  // 1-> Scissor
-  // 2-> Paper
+  switch(value){
+    case 0:
+      return "Rock";
+    case 1:
+      return "Scissor";
+    case 2:
+      return "Paper";
+  }
+
   
 }
 
-function getHumanChoice(){
-  const buttons = document.querySelectorAll("button");
-  buttons.forEach((button) => {
 
-  button.addEventListener("click", () => {
-    return button.id;
-  });
-});
-}
-function playRound(){
-  ScoreWriter();
+const buttons = document.querySelectorAll("button");
+  buttons.forEach((button) => { button.addEventListener("click", () => {
+      HumanValue = button.textContent;
+      ComputerValue = getComputerChoice(3);
+      console.log(ComputerValue);
+      Score.textContent = CheckWinner(); 
+       ScoreWriter();
 
-  let HumanValue = getHumanChoice();
-  let ComputerValue = String(getComputerChoice(3));
+});});
 
-    if (HumanValue == "0" && ComputerValue == "0") {
-      Score.textContent = "Draw";
-    } 
-    else if (HumanValue == "1" && ComputerValue == "1") {
-      Score.textContent = "Draw";
-    } 
-    else if (HumanValue == "2" && ComputerValue == "2") {
-      Score.textContent = "Draw";
-    } 
-    else if (HumanValue == "0" && ComputerValue == "1") {
-      Score.textContent = "Player won";
-      HumanScoreNumber++
-      HumanScore++;
-    } 
-    else if (HumanValue == "1" && ComputerValue == "2") {
-      Score.textContent = "Player won";
-      HumanScoreNumber++;
-      HumanScore++;
-    } 
-    else if (HumanValue == "2" && ComputerValue == "0") {
-      Score.textContent = "Player won";
-      HumanScoreNumber++;
-    } 
-    else {
-      Score.textContent = "Computer won";
-      ComputerScoreNumber++;
-    }
+function CheckWinner(){
+
+  if (HumanValue == ComputerValue) {
+    return "Draw";
+  } else if (ComputerValue == "Rock" && HumanValue == "Paper") {
+    HumanScoreNumber++;
+    return "Player win";
+  } else if (ComputerValue == "Paper" && HumanValue == "Scissor") {
+    HumanScoreNumber++;
+    return "Player win";
+  } else if (ComputerValue == "Scissor" && HumanValue == "Rock") {
+    HumanScoreNumber++;
+    return "Player win";
   }
-
-function playGame() {
-  let i = 0;
-  while (i < 6) {
-    playRound();
-    i++;
+  else{
+    ComputerScoreNumber++
+    return "Computer win";
   }
 }
-
-playGame();
