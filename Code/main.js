@@ -1,11 +1,27 @@
-let HumanScore = 0;
-let ComputerScore = 0;
+let HumanScoreNumber = 0;
+let ComputerScoreNumber = 0;
+
+
+const ScoreContainer = document.querySelector("div");
+const PlayerScore = document.createElement("p");
+const ComputerScore = document.createElement("p");
+const Score = document.createElement("h");
+
+
+ScoreContainer.append(ComputerScore);
+ScoreContainer.append(PlayerScore);
+
+ScoreContainer.append(Score);
+
+ScoreContainer.append();
 
 function ScoreWriter(){
-  PlayerScoreManuplated = "Player score: "+ HumanScore
-  ComputerScoreManuplated = "Computer score: " + ComputerScore 
-  console.log(PlayerScoreManuplated);
-  console.log(ComputerScoreManuplated);
+  
+  PlayerScore.textContent = `Player score is: ${HumanScoreNumber}`;
+  ComputerScore.textContent = `Computer score is : ${ComputerScoreNumber}`;
+
+ ;
+
 }
 
 function getComputerChoice(max) {
@@ -18,56 +34,55 @@ function getComputerChoice(max) {
 }
 
 function getHumanChoice(){
-  console.log("-------------")
-  console.log("0->Rock");
-  console.log("1->Paper");
-  console.log("2->Scissor");
-  value = prompt("Choice: ")
-  return value;
+  const buttons = document.querySelectorAll("button");
+  buttons.forEach((button) => {
+
+  button.addEventListener("click", () => {
+    return button.id;
+  });
+});
 }
 function playRound(){
-  let HumanValue = getHumanChoice()
+  ScoreWriter();
+
+  let HumanValue = getHumanChoice();
   let ComputerValue = String(getComputerChoice(3));
 
-  if (HumanValue == "0" || HumanValue == "1" || HumanValue == "2"){
     if (HumanValue == "0" && ComputerValue == "0") {
-      console.log("Draw");
-      ScoreWriter();
-    } else if (HumanValue == "1" && ComputerValue == "1") {
-      console.log("Draw");
-      ScoreWriter();
-    } else if (HumanValue == "2" && ComputerValue == "2") {
-      console.log("Draw");
-      ScoreWriter();
-    } else if (HumanValue == "0" && ComputerValue == "1") {
-      console.log("Player won");
+      Score.textContent = "Draw";
+    } 
+    else if (HumanValue == "1" && ComputerValue == "1") {
+      Score.textContent = "Draw";
+    } 
+    else if (HumanValue == "2" && ComputerValue == "2") {
+      Score.textContent = "Draw";
+    } 
+    else if (HumanValue == "0" && ComputerValue == "1") {
+      Score.textContent = "Player won";
+      HumanScoreNumber++
       HumanScore++;
-      ScoreWriter();
-    } else if (HumanValue == "1" && ComputerValue == "2") {
-      console.log("Player won");
+    } 
+    else if (HumanValue == "1" && ComputerValue == "2") {
+      Score.textContent = "Player won";
+      HumanScoreNumber++;
       HumanScore++;
-      ScoreWriter();
-    } else if (HumanValue == "2" && ComputerValue == "0") {
-      console.log("Player won");
-      HumanScore++;
-      ScoreWriter();
-    } else {
-      console.log("Computer won");
-      ComputerScore++;
-      ScoreWriter();
+    } 
+    else if (HumanValue == "2" && ComputerValue == "0") {
+      Score.textContent = "Player won";
+      HumanScoreNumber++;
+    } 
+    else {
+      Score.textContent = "Computer won";
+      ComputerScoreNumber++;
     }
   }
-  else{
-    console.log("You cant use the numbers different than 0, 1 and 2")
-  }
-}
-function playGame(){
-  let i = 0;
-  while (i < 6){
-    playRound();
 
+function playGame() {
+  let i = 0;
+  while (i < 6) {
+    playRound();
     i++;
   }
 }
 
-playGame()
+playGame();
